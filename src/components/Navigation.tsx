@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { NavLink } from "@/components/NavLink";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
@@ -34,6 +35,9 @@ export const Navigation = () => {
                 {item.name}
               </a>
             ))}
+            <NavLink to="/blog" className="hover:text-accent transition-colors font-medium">
+              Blog
+            </NavLink>
             <Button variant="hero" size="default">
               Quick Quote
             </Button>
@@ -62,6 +66,13 @@ export const Navigation = () => {
                 {item.name}
               </a>
             ))}
+            <NavLink
+              to="/blog"
+              className="block py-2 hover:text-accent transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Blog
+            </NavLink>
             <Button variant="hero" size="default" className="w-full mt-4">
               Quick Quote
             </Button>
