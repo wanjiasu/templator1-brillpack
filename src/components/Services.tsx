@@ -1,7 +1,10 @@
 import { Card } from "@/components/ui/card";
 import { Box, Palette, Sparkles, Truck } from "lucide-react";
+import { useConfig } from "@/contexts/ConfigContext";
 
 export const Services = () => {
+  const config = useConfig();
+  const brand = config?.siteIdentity?.name || config?.app_name || "BrillPack";
   const services = [
     {
       icon: Box,
@@ -40,7 +43,7 @@ export const Services = () => {
             Comprehensive Packaging Solutions
           </h2>
           <p className="text-lg text-muted-foreground">
-            From concept to delivery, we provide end-to-end packaging services
+            From concept to delivery, {brand} provides end-to-end packaging services
             that exceed expectations.
           </p>
         </div>

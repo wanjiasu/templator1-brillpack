@@ -4,8 +4,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useConfig } from "@/contexts/ConfigContext";
 
 export const Contact = () => {
+  const config = useConfig();
+  const contactEmail = config?.contact?.email || "info@brillpack.com";
+  const contactPhone = config?.contact?.phone || "+1 (555) 123-4567";
+  const contactAddress = config?.contact?.address || "123 Packaging Lane\nBusiness District, NY 10001";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -49,7 +54,7 @@ export const Contact = () => {
                 <h3 className="text-xl font-semibold text-foreground mb-1">
                   Email Us
                 </h3>
-                <p className="text-muted-foreground">info@brillpack.com</p>
+                <p className="text-muted-foreground">{contactEmail}</p>
               </div>
             </div>
 
@@ -61,7 +66,7 @@ export const Contact = () => {
                 <h3 className="text-xl font-semibold text-foreground mb-1">
                   Call Us
                 </h3>
-                <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                <p className="text-muted-foreground">{contactPhone}</p>
               </div>
             </div>
 
@@ -73,10 +78,8 @@ export const Contact = () => {
                 <h3 className="text-xl font-semibold text-foreground mb-1">
                   Visit Us
                 </h3>
-                <p className="text-muted-foreground">
-                  123 Packaging Lane
-                  <br />
-                  Business District, NY 10001
+                <p className="text-muted-foreground whitespace-pre-line">
+                  {contactAddress}
                 </p>
               </div>
             </div>

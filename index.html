@@ -3,6 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>正在加载...</title>
+    <script>
+      // Bootstrap runtime configuration before React renders
+      // Provide sane defaults if config.json fails to load
+      window.APP_CONFIG = {
+        siteIdentity: { name: "加载失败", logoUrl: "/favicon.ico" },
+        theming: { primaryColor: "#1E293B" },
+        app_name: "加载失败",
+        slogan: "",
+        descriptionHero: "",
+        seo: { title: "", description: "" },
+        seo_keyword: "",
+        apiEndpoints: { cmsBaseUrl: "", cmsSiteId: "error" },
+        strapi_url: "",
+        strapi_site_slug: "",
+        gtm_id: "GTM-58TDPTJ3"
+      };
+
+      try {
+        // Use synchronous XHR to avoid flicker prior to React boot
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/config.json', false); // synchronous
+        xhr.send(null);
+        if (xhr.status === 200) {
+          window.APP_CONFIG = JSON.parse(xhr.responseText);
+          // Optionally set title from config
+          if (window.APP_CONFIG?.seo?.title) {
+            document.title = window.APP_CONFIG.seo.title;
+          }
+        } else {
+          console.warn('无法加载外部 config.json，将使用默认配置。');
+        }
+      } catch (error) {
+        console.error('加载 config.json 时出错:', error);
+      }
+    </script>
+    <!-- Fallback title (may be overridden by config above) -->
     <title>BrillPack - Custom Packaging Solutions</title>
     <meta name="description" content="Elevate your brand with custom packaging solutions. Premium rigid boxes, magnetic closure designs, and tailor-made packaging that captivates customers and protects your products." />
     <meta name="author" content="BrillPack" />
@@ -16,19 +53,20 @@
     <meta name="twitter:site" content="@Lovable" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
-    <!-- Google Tag Manager -->
+    <!-- Google Tag Manager (dynamic by config) -->
     <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-58TDPTJ3');
+      (function(w,d,s,l){
+        var gid = (w.APP_CONFIG && w.APP_CONFIG.gtm_id) || 'GTM-58TDPTJ3';
+        w[l]=w[l]||[]; w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+        var f=d.getElementsByTagName(s)[0], j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
+        j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+gid+dl; f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer');
     </script>
     <!-- End Google Tag Manager -->
   </head>
 
   <body>
-    <!-- Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript; default ID, can be overridden during build) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-58TDPTJ3"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->

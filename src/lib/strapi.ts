@@ -1,8 +1,24 @@
-export const API_URL = "https://2amcreations.com";
-export const SITE_SLUG = "xmyxyswkj";
+// Read Strapi base URL and site slug from runtime config loaded in index.html
+function getStrapiBaseUrl() {
+  const w = window as any;
+  return (
+    w?.APP_CONFIG?.strapi_url ||
+    w?.APP_CONFIG?.apiEndpoints?.cmsBaseUrl ||
+    "https://2amcreations.com"
+  );
+}
+
+function getStrapiSiteSlug() {
+  const w = window as any;
+  return (
+    w?.APP_CONFIG?.strapi_site_slug ||
+    w?.APP_CONFIG?.apiEndpoints?.cmsSiteId ||
+    "xmyxyswkj"
+  );
+}
 
 export function buildUrl(path: string) {
-  return `${API_URL}${path}`;
+  return `${getStrapiBaseUrl()}${path}`;
 }
 
 function normalizeImage(media: any): string | null {
@@ -29,7 +45,7 @@ export type BlogPostListItem = {
 };
 
 export async function fetchBlogPosts(): Promise<BlogPostListItem[]> {
-  const query = `/api/blog-posts?populate=coverImage&filters[site][slug][$eq]=${SITE_SLUG}&sort=createdAt:desc`;
+  const query = `/api/blog-posts?populate=coverImage&filters[site][slug][$eq]=${getStrapiSiteSlug()}&sort=createdAt:desc`;
   const res = await fetch(buildUrl(query));
   if (!res.ok) throw new Error("Failed to fetch blog posts");
   const json = await res.json();
@@ -54,7 +70,7 @@ export type BlogPostDetail = {
 };
 
 export async function fetchBlogBySlug(slug: string): Promise<BlogPostDetail | null> {
-  const query = `/api/blog-posts?populate=*&filters[slug][$eq]=${slug}&filters[site][slug][$eq]=${SITE_SLUG}`;
+  const query = `/api/blog-posts?populate=*&filters[slug][$eq]=${slug}&filters[site][slug][$eq]=${getStrapiSiteSlug()}`;
   const res = await fetch(buildUrl(query));
   if (!res.ok) throw new Error("Failed to fetch blog detail");
   const json = await res.json();

@@ -2,9 +2,11 @@ import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useConfig } from "@/contexts/ConfigContext";
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const config = useConfig();
 
   const navItems = [
     { name: "Home", href: "#home" },
@@ -20,7 +22,7 @@ export const Navigation = () => {
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center">
             <a href="#home" className="text-2xl font-bold">
-              BrillPack
+              {config?.siteIdentity?.name || config?.app_name || "BrillPack"}
             </a>
           </div>
 

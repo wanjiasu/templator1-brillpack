@@ -1,14 +1,22 @@
+import { useConfig } from "@/contexts/ConfigContext";
+
 export const Footer = () => {
+  const config = useConfig();
+  const brand = config?.siteIdentity?.name || config?.app_name || "BrillPack";
+  const slogan =
+    config?.slogan ||
+    "Brilliance in every box – creating custom packaging solutions that elevate your brand.";
+  const contactEmail = config?.contact?.email || "info@brillpack.com";
+  const contactPhone = config?.contact?.phone || "+1 (555) 123-4567";
+  const contactAddress = config?.contact?.address || "123 Packaging Lane\nBusiness District, NY 10001";
+  const year = new Date().getFullYear();
   return (
     <footer className="bg-primary text-primary-foreground py-12">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold">BrillPack</h3>
-            <p className="text-primary-foreground/80">
-              Brilliance in every box – creating custom packaging solutions that
-              elevate your brand.
-            </p>
+            <h3 className="text-2xl font-bold">{brand}</h3>
+            <p className="text-primary-foreground/80">{slogan}</p>
           </div>
 
           <div>
@@ -50,16 +58,17 @@ export const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-primary-foreground/80">
-              <li>info@brillpack.com</li>
-              <li>+1 (555) 123-4567</li>
-              <li>123 Packaging Lane</li>
-              <li>Business District, NY 10001</li>
+              <li>{contactEmail}</li>
+              <li>{contactPhone}</li>
+              {contactAddress.split("\n").map((line, idx) => (
+                <li key={idx}>{line}</li>
+              ))}
             </ul>
           </div>
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-12 pt-8 text-center text-primary-foreground/60">
-          <p>© 2024 BrillPack. All rights reserved. Elevating brands through innovative packaging solutions.</p>
+          <p>© {year} {brand}. All rights reserved. {slogan}</p>
         </div>
       </div>
     </footer>

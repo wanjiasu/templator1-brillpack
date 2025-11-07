@@ -1,0 +1,29 @@
+{
+  "siteIdentity": {
+    "name": "BrillPack",
+    "logoUrl": "/favicon.ico"
+  },
+  "theming": {
+    "primaryColor": "#1E293B"
+  },
+  "app_name": "BrillPack - Custom Packaging",
+  "slogan": "Brilliance in every box",
+  "descriptionHero": "Elevate your brand with custom packaging solutions.",
+  "seo": {
+    "title": "BrillPack - Custom Packaging Solutions",
+    "description": "Tailor-made packaging that captivates customers and protects your products."
+  },
+  "seo_keyword": "packaging, rigid boxes, custom boxes, branding",
+  "apiEndpoints": {
+    "cmsBaseUrl": "https://2amcreations.com",
+    "cmsSiteId": "xmyxyswkj"
+  },
+  "strapi_url": "https://2amcreations.com",
+  "strapi_site_slug": "xmyxyswkj",
+  "gtm_id": "GTM-58TDPTJ3",
+  "contact": {
+    "email": "info@brillpack.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "123 Packaging Lane\nBusiness District, NY 10001"
+  }
+}

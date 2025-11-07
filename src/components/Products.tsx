@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import productsImage from "@/assets/products-showcase.jpg";
 import { ArrowRight } from "lucide-react";
+import { useConfig } from "@/contexts/ConfigContext";
 
 export const Products = () => {
+  const config = useConfig();
+  const brand = config?.siteIdentity?.name || config?.app_name || "BrillPack";
   const productTypes = [
     { name: "Rigid Boxes", description: "Premium boxes for luxury products" },
     { name: "Folding Cartons", description: "Versatile and cost-effective" },
@@ -21,7 +24,7 @@ export const Products = () => {
             Explore Our Box Styles
           </h2>
           <p className="text-lg text-muted-foreground">
-            Discover our wide range of custom packaging solutions designed to
+            Discover {brand}'s wide range of custom packaging solutions designed to
             showcase your products beautifully.
           </p>
         </div>

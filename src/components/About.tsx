@@ -1,7 +1,10 @@
 import { CheckCircle } from "lucide-react";
 import teamImage from "@/assets/team-collaboration.jpg";
+import { useConfig } from "@/contexts/ConfigContext";
 
 export const About = () => {
+  const config = useConfig();
+  const brand = config?.siteIdentity?.name || config?.app_name || "BrillPack";
   const features = [
     "Custom design and branding solutions",
     "High-quality materials and finishes",
@@ -31,7 +34,7 @@ export const About = () => {
               Delivering Excellence in Custom Packaging
             </h2>
             <p className="text-lg text-muted-foreground">
-              For over a decade, BrillPack has delivered custom packaging that
+              For over a decade, {brand} has delivered custom packaging that
               protects your products and elevates your brand. We combine
               innovation, quality, and personalized service to create packaging
               solutions that make your products stand out.
